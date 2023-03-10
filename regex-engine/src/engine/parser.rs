@@ -63,3 +63,24 @@ fn parse_escape(pos: usize, c: char) -> std::result::Result<AST, ParseError> {
         }
     }
 }
+
+/// +, *, ?をASTに変換
+///
+/// 後置記法で、+, *, ?の前にパターンがない場合はエラー
+fn parse_plus_star_question(
+    seq: &mut Vec<AST>,
+    ast_type: PSQ,
+    pos: usize,
+) -> std::result::Result<(), ParseError> {
+    if let Some(prev) = seq.pop() {
+        let ast = match ast_type {
+            PSQ::Plus => AST::Plus(Box::new(prev)),
+            PSQ::Star => AST::Star(Box::new(prev)),
+            PSQ::Question => AST::Question(Box::new(prev)),
+        };
+        seq.push(ast);
+        Ok(())
+    } else {
+        Err(ParseError::NoPrev(pos))
+    }
+}
