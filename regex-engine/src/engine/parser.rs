@@ -24,6 +24,13 @@ pub enum ParseError {
     Empty,
 }
 
+/// parse_plus_star_question関数で利用するための列挙型
+pub enum PSQ {
+    Plus,
+    Star,
+    Question,
+}
+
 impl Display for ParseError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
