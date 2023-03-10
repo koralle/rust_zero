@@ -45,3 +45,14 @@ impl Display for ParseError {
 }
 
 impl Error for ParseError {}
+
+/// 特殊文字のエスケープ
+fn parse_escape(pos: usize, c: char) -> std::result::Result<AST, ParseError> {
+    match c {
+        '\\' | '(' | ')' | '|' | '+' | '*' | '?' => Ok(AST::Char(c)),
+        _ => {
+            let err = ParseError::InvalidEscape(pos, c);
+            Err(err)
+        }
+    }
+}
