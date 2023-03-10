@@ -10,3 +10,12 @@ pub enum AST {
     Seq(Vec<AST>),
 }
 
+/// パースエラーを表すための型
+#[derive(Debug)]
+pub enum ParseError {
+    InvalidEscape(usize, char),
+    InvalidRightParen(usize),
+    NoPrev(usize),
+    NorightParen,
+    Empty,
+}
