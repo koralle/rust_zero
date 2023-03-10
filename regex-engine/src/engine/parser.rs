@@ -1,4 +1,5 @@
 use std::{
+    error::Error,
     fmt::{self, Display},
 };
 
@@ -42,3 +43,5 @@ impl Display for ParseError {
         }
     }
 }
+
+impl Error for ParseError {}
